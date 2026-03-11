@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.mozilla.firefox</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MPL-2.0</project_license>
+  <name>Firefox</name>
+  <summary>Fast, Private &amp; Safe Web Browser</summary>
+  <icon type="stock">org.mozilla.firefox</icon>
+  <description>
+    <p>
+      Firefox is a powerful, extensible web browser with support for modern web standards.
+      It offers a fast, secure browsing experience with extensive privacy features and
+      customization options.
+    </p>
+    <p>
+      Key features include:
+    </p>
+    <ul>
+      <li>Enhanced Tracking Protection blocks thousands of trackers by default</li>
+      <li>Private Browsing mode with built-in Tracking Protection</li>
+      <li>Picture-in-Picture mode for multitasking with videos</li>
+      <li>Integrated password manager and form autofill</li>
+      <li>Thousands of add-ons for customization</li>
+      <li>Tab management with containers for separating browsing contexts</li>
+      <li>Reader View for distraction-free reading</li>
+      <li>Firefox Sync for seamless browsing across devices</li>
+      <li>Developer tools for web development</li>
+      <li>Support for modern web standards (HTML5, CSS3, WebGL)</li>
+    </ul>
+    <p>
+      Firefox is developed by Mozilla, a non-profit organization dedicated to keeping
+      the internet open and accessible to all.
+    </p>
+  </description>
+  <launchable type="desktop-id">org.mozilla.firefox.desktop</launchable>
+  <url type="homepage">https://www.mozilla.org/firefox/</url>
+  <url type="bugtracker">https://bugzilla.mozilla.org/</url>
+  <url type="help">https://support.mozilla.org/</url>
+  <url type="donation">https://donate.mozilla.org/</url>
+  <url type="translate">https://pontoon.mozilla.org/</url>
+  <developer_name>Mozilla</developer_name>
+  <content_rating type="oars-1.1">
+    <content_attribute id="social-info">moderate</content_attribute>
+  </content_rating>
+  <releases>
+    <release version="148.0.2" date="2026-03-09">
+      <description>
+        <p>Latest stable release of Firefox with security updates and bug fixes.</p>
+      </description>
+    </release>
+  </releases>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Firefox web browser</caption>
+    </screenshot>
+  </screenshots>
+  <categories>
+    <category>Network</category>
+    <category>WebBrowser</category>
+  </categories>
+  <keywords>
+    <keyword>web</keyword>
+    <keyword>browser</keyword>
+    <keyword>internet</keyword>
+    <keyword>mozilla</keyword>
+  </keywords>
+</component>

@@ -1,0 +1,94 @@
+app-id: org.mozilla.firefox
+runtime: org.freedesktop.Platform
+runtime-version: '25.08'
+sdk: org.freedesktop.Sdk
+command: firefox
+finish-args:
+  # Display and graphics
+  - --share=ipc
+  - --socket=x11
+  - --socket=wayland
+  - --device=dri
+  - --socket=cups
+  
+  # Audio
+  - --socket=pulseaudio
+  
+  # Network
+  - --share=network
+  
+  # File access
+  - --filesystem=xdg-download:rw
+  - --filesystem=xdg-documents:ro
+  - --filesystem=xdg-pictures:ro
+  - --filesystem=xdg-videos:ro
+  - --filesystem=xdg-music:ro
+  
+  # D-Bus access
+  - --talk-name=org.freedesktop.FileManager1
+  - --talk-name=org.freedesktop.Notifications
+  - --talk-name=org.freedesktop.ScreenSaver
+  - --talk-name=org.freedesktop.secrets
+  - --talk-name=org.gtk.vfs.*
+  - --talk-name=org.a11y.Bus
+  
+  # System D-Bus
+  - --system-talk-name=org.freedesktop.NetworkManager
+  
+  # Hardware access for WebGL, webcam, etc.
+  - --device=all
+  
+  # Allow MPRIS media controls
+  - --own-name=org.mpris.MediaPlayer2.firefox.*
+  
+  # Browser integration
+  - --own-name=org.mozilla.firefox.*
+  - --own-name=org.mozilla.firefox_beta.*
+  
+  # Environment variables
+  - --env=MOZ_ENABLE_WAYLAND=1
+  - --env=GTK_USE_PORTAL=1
+
+modules:
+  - name: firefox
+    buildsystem: simple
+    build-commands:
+      # Extract Firefox
+      - tar -xf firefox-*.tar.xz
+      
+      # Install Firefox to /app
+      - mkdir -p /app/lib/firefox
+      - cp -r firefox/* /app/lib/firefox/
+      
+      # Create wrapper script
+      - |
+        cat > /app/bin/firefox << 'EOF'
+        #!/bin/sh
+        exec /app/lib/firefox/firefox "$@"
+        EOF
+      - chmod +x /app/bin/firefox
+      
+      # Install desktop file
+      - install -Dm644 org.mozilla.firefox.desktop /app/share/applications/org.mozilla.firefox.desktop
+      
+      # Install metainfo
+      - install -Dm644 org.mozilla.firefox.metainfo.xml /app/share/metainfo/org.mozilla.firefox.metainfo.xml
+      
+      # Install icons
+      - install -Dm644 firefox/browser/chrome/icons/default/default16.png /app/share/icons/hicolor/16x16/apps/org.mozilla.firefox.png
+      - install -Dm644 firefox/browser/chrome/icons/default/default32.png /app/share/icons/hicolor/32x32/apps/org.mozilla.firefox.png
+      - install -Dm644 firefox/browser/chrome/icons/default/default48.png /app/share/icons/hicolor/48x48/apps/org.mozilla.firefox.png
+      - install -Dm644 firefox/browser/chrome/icons/default/default64.png /app/share/icons/hicolor/64x64/apps/org.mozilla.firefox.png
+      - install -Dm644 firefox/browser/chrome/icons/default/default128.png /app/share/icons/hicolor/128x128/apps/org.mozilla.firefox.png
+      
+    sources:
+      - type: archive
+        url: https://download-installer.cdn.mozilla.net/pub/firefox/releases/148.0.2/linux-x86_64/en-US/firefox-148.0.2.tar.xz
+        sha256: e15afd77dab1ba3c1806b4436cd603b35ea1d4e06a452b5c572ef7bc1663d75a
+        dest-filename: firefox-148.0.2.tar.xz
+      
+      - type: file
+        path: org.mozilla.firefox.desktop
+      
+      - type: file
+        path: org.mozilla.firefox.metainfo.xml
