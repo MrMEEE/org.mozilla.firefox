@@ -53,14 +53,13 @@ modules:
   - name: firefox
     buildsystem: simple
     build-commands:
-      # Extract Firefox
-      - tar -xf firefox-*.tar.xz
-      
+      # Firefox is already extracted by flatpak-builder
       # Install Firefox to /app
       - mkdir -p /app/lib/firefox
-      - cp -r firefox/* /app/lib/firefox/
+      - cp -r * /app/lib/firefox/
       
       # Create wrapper script
+      - mkdir -p /app/bin
       - |
         cat > /app/bin/firefox << 'EOF'
         #!/bin/sh
@@ -74,12 +73,12 @@ modules:
       # Install metainfo
       - install -Dm644 org.mozilla.firefox.metainfo.xml /app/share/metainfo/org.mozilla.firefox.metainfo.xml
       
-      # Install icons
-      - install -Dm644 firefox/browser/chrome/icons/default/default16.png /app/share/icons/hicolor/16x16/apps/org.mozilla.firefox.png
-      - install -Dm644 firefox/browser/chrome/icons/default/default32.png /app/share/icons/hicolor/32x32/apps/org.mozilla.firefox.png
-      - install -Dm644 firefox/browser/chrome/icons/default/default48.png /app/share/icons/hicolor/48x48/apps/org.mozilla.firefox.png
-      - install -Dm644 firefox/browser/chrome/icons/default/default64.png /app/share/icons/hicolor/64x64/apps/org.mozilla.firefox.png
-      - install -Dm644 firefox/browser/chrome/icons/default/default128.png /app/share/icons/hicolor/128x128/apps/org.mozilla.firefox.png
+      # Install icons (from installed location)
+      - install -Dm644 /app/lib/firefox/browser/chrome/icons/default/default16.png /app/share/icons/hicolor/16x16/apps/org.mozilla.firefox.png
+      - install -Dm644 /app/lib/firefox/browser/chrome/icons/default/default32.png /app/share/icons/hicolor/32x32/apps/org.mozilla.firefox.png
+      - install -Dm644 /app/lib/firefox/browser/chrome/icons/default/default48.png /app/share/icons/hicolor/48x48/apps/org.mozilla.firefox.png
+      - install -Dm644 /app/lib/firefox/browser/chrome/icons/default/default64.png /app/share/icons/hicolor/64x64/apps/org.mozilla.firefox.png
+      - install -Dm644 /app/lib/firefox/browser/chrome/icons/default/default128.png /app/share/icons/hicolor/128x128/apps/org.mozilla.firefox.png
       
     sources:
       - type: archive
